@@ -3,6 +3,7 @@ import os
 import pdb
 import matplotlib.pyplot as plt
 import sklearn.covariance as covar
+from sklearn.decomposition import PCA
 
 # datasets_dir = '/Download/MNIST/Data/Here'
 
@@ -79,10 +80,28 @@ def main():
                                noTsSamples=100, digit_range=[5, 8],
                                noTrPerClass=200, noTsPerClass=50)
 
+# Covariance of PCA constructed data
+    pca = PCA(n_components=10)
+    trX_transformed = pca.fit_transform(trX.T)
+    print(trX_transformed.shape)
 
-    plt.imshow(trX[:,1].reshape(28,28))
+    trX_covar = np.matmul(trX_transformed.T, trX_transformed)
+    plt.matshow(trX_covar)
     plt.show()
-    trY[0,5]
-    
+    # plt.imshow(trX_transformed.T[:,5].reshape(10,-1))
+    # plt.show()
+    # plt.imshow(trX[:,1].reshape(28,28))
+    # plt.show()
+    # trY[0,5]
+
+    # pca = PCA(n_components=10)
+    # pca.fit(tsX.T)
+    # np.transpose(tsX)
+    # transformed_X = pca.transform(trX)
+    # print(covar(transformed_X))
+    # plt.matshow(covar(transformed_X))
+    # print(project)
+    # plt.imshow(trX[:,1].reshape(28,28))
+    # plt.show()
 if __name__ == "__main__":
     main()
