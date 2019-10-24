@@ -2,7 +2,6 @@ import numpy as np
 import os
 import pdb
 import matplotlib.pyplot as plt
-import sklearn.covariance as covar
 from sklearn.decomposition import PCA
 
 # datasets_dir = '/Download/MNIST/Data/Here'
@@ -83,11 +82,26 @@ def main():
 # Covariance of PCA constructed data
     pca = PCA(n_components=10)
     trX_transformed = pca.fit_transform(trX.T)
-    print(trX_transformed.shape)
+    tsX_transformed = pca.fit_transform(trX.T)
+    trx_reconstruct = pca.inverse_transform(trX_transformed)
+    # print(trX_transformed.shape)
+    # plt.imshow(trx_reconstruct.T[:, 5].reshape(28, -1))
+    # plt.show()
+
 
     trX_covar = np.matmul(trX_transformed.T, trX_transformed)
-    plt.matshow(trX_covar)
+    tsX_covar = np.matmul(tsX_transformed.T, tsX_transformed)
+    fig, (covariance_trX, covariance_tsX) = plt.subplots(1,2)
+    fig.suptitle("\nCo-variance of PCA transformed data", fontsize = 12, color = "red")
+    covariance_trX.set_title("\n\n\nPCA- covariance_trX\n")
+    covariance_tsX.set_title("\n\n\nPCA- covariance_tsX\n")
+    covariance_trX.matshow(trX_covar)
+    covariance_tsX.matshow(tsX_covar)
     plt.show()
+    # covariance.matshow(tsX_covar)
+    # plt.show()
+
+    # covariance.show()
     # plt.imshow(trX_transformed.T[:,5].reshape(10,-1))
     # plt.show()
     # plt.imshow(trX[:,1].reshape(28,28))
