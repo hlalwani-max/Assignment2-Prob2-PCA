@@ -79,16 +79,13 @@ def main():
                                noTsSamples=100, digit_range=[5, 8],
                                noTrPerClass=200, noTsPerClass=50)
 
-# Covariance of PCA constructed data
+
     pca = PCA(n_components=10)
     trX_transformed = pca.fit_transform(trX.T)
     tsX_transformed = pca.fit_transform(trX.T)
     trx_reconstruct = pca.inverse_transform(trX_transformed)
-    # print(trX_transformed.shape)
-    # plt.imshow(trx_reconstruct.T[:, 5].reshape(28, -1))
-    # plt.show()
 
-
+    # Problem1- Covariance of PCA constructed data
     trX_covar = np.matmul(trX_transformed.T, trX_transformed)
     tsX_covar = np.matmul(tsX_transformed.T, tsX_transformed)
     fig, (covariance_trX, covariance_tsX) = plt.subplots(1,2)
@@ -98,24 +95,36 @@ def main():
     covariance_trX.matshow(trX_covar)
     covariance_tsX.matshow(tsX_covar)
     plt.show()
-    # covariance.matshow(tsX_covar)
-    # plt.show()
 
-    # covariance.show()
-    # plt.imshow(trX_transformed.T[:,5].reshape(10,-1))
-    # plt.show()
-    # plt.imshow(trX[:,1].reshape(28,28))
+    #Problem2 - compare original and reconstructed images
+    img, DIGITS = plt.subplots(2,10)
+    DIGITS[0,0].imshow(trX[:, 1].reshape(28, -1))
+    DIGITS[0,1].imshow(trx_reconstruct.T[:, 1].reshape(28, -1))
+    DIGITS[0, 2].imshow(trX[:, 2].reshape(28, -1))
+    DIGITS[0, 3].imshow(trx_reconstruct.T[:, 2].reshape(28, -1))
+    DIGITS[0, 4].imshow(trX[:, 3].reshape(28, -1))
+    DIGITS[0, 5].imshow(trx_reconstruct.T[:, 3].reshape(28, -1))
+    DIGITS[0, 6].imshow(trX[:, 4].reshape(28, -1))
+    DIGITS[0, 7].imshow(trx_reconstruct.T[:, 4].reshape(28, -1))
+    DIGITS[0, 8].imshow(trX[:, 5].reshape(28, -1))
+    DIGITS[0, 9].imshow(trx_reconstruct.T[:, 5].reshape(28, -1))
+
+    DIGITS[1, 0].imshow(trX[:, 201].reshape(28, -1))
+    DIGITS[1, 1].imshow(trx_reconstruct.T[:, 201].reshape(28, -1))
+    DIGITS[1, 2].imshow(trX[:, 202].reshape(28, -1))
+    DIGITS[1, 3].imshow(trx_reconstruct.T[:, 202].reshape(28, -1))
+    DIGITS[1, 4].imshow(trX[:, 203].reshape(28, -1))
+    DIGITS[1, 5].imshow(trx_reconstruct.T[:, 203].reshape(28, -1))
+    DIGITS[1, 6].imshow(trX[:, 204].reshape(28, -1))
+    DIGITS[1, 7].imshow(trx_reconstruct.T[:, 204].reshape(28, -1))
+    DIGITS[1, 8].imshow(trX[:, 205].reshape(28, -1))
+    DIGITS[1, 9].imshow(trx_reconstruct.T[:, 205].reshape(28, -1))
+    img.show()
+
+    # plt.imshow(trx_reconstruct.T[:, 5].reshape(28, -1))
+
     # plt.show()
     # trY[0,5]
 
-    # pca = PCA(n_components=10)
-    # pca.fit(tsX.T)
-    # np.transpose(tsX)
-    # transformed_X = pca.transform(trX)
-    # print(covar(transformed_X))
-    # plt.matshow(covar(transformed_X))
-    # print(project)
-    # plt.imshow(trX[:,1].reshape(28,28))
-    # plt.show()
 if __name__ == "__main__":
     main()
